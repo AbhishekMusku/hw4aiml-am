@@ -1,0 +1,96 @@
+do run.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# Errors: 0, Warnings: 1
+# ** Warning: (vdel-134) Unable to remove locked optimized design "_opt".  Locker is abhimusk@REMOTELAB32.
+# ** Warning: (vlib-34) Library already exists at "work".
+# Errors: 0, Warnings: 1
+# QuestaSim-64 vlog 2024.2 Compiler 2024.05 May 20 2024
+# Start time: 21:24:05 on Apr 06,2025
+# vlog -reportprogress 300 lif.sv "+acc" 
+# -- Compiling module lif_neuron
+# 
+# Top level modules:
+# 	lif_neuron
+# End time: 21:24:05 on Apr 06,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2024.2 Compiler 2024.05 May 20 2024
+# Start time: 21:24:05 on Apr 06,2025
+# vlog -reportprogress 300 lif_neuron_tb.sv "+acc" 
+# -- Compiling module lif_neuron_tb
+# 
+# Top level modules:
+# 	lif_neuron_tb
+# End time: 21:24:05 on Apr 06,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# End time: 21:24:06 on Apr 06,2025, Elapsed time: 0:04:48
+# Errors: 0, Warnings: 1
+# vsim work.lif_neuron_tb 
+# Start time: 21:24:06 on Apr 06,2025
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# Loading sv_std.std
+# Loading work.lif_neuron_tb(fast)
+# Loading work.lif_neuron(fast)
+# Time=               25000, Current=  0, Membrane=  0, Spike=0, Refractory=0, RefCounter= 0
+# Test Case 1: Sub-threshold stimulation - Testing leak mechanism
+# Time=               35000, Current= 20, Membrane=  0, Spike=0, Refractory=0, RefCounter= 0
+# Time=               45000, Current= 20, Membrane= 20, Spike=0, Refractory=0, RefCounter= 0
+# Time=               55000, Current= 20, Membrane= 38, Spike=0, Refractory=0, RefCounter= 0
+# Time=               65000, Current= 20, Membrane= 56, Spike=0, Refractory=0, RefCounter= 0
+# Time=               75000, Current= 20, Membrane= 74, Spike=0, Refractory=0, RefCounter= 0
+# Time=               85000, Current= 20, Membrane= 92, Spike=0, Refractory=0, RefCounter= 0
+# Time=               95000, Current= 20, Membrane=110, Spike=0, Refractory=0, RefCounter= 0
+# Time=              105000, Current= 20, Membrane=  0, Spike=1, Refractory=1, RefCounter= 0
+# Time=              115000, Current= 20, Membrane=  0, Spike=0, Refractory=1, RefCounter= 1
+# Time=              125000, Current= 20, Membrane=  0, Spike=0, Refractory=1, RefCounter= 2
+# Time=              135000, Current= 20, Membrane=  0, Spike=0, Refractory=1, RefCounter= 3
+# Time=              145000, Current= 20, Membrane=  0, Spike=0, Refractory=1, RefCounter= 4
+# Time=              155000, Current= 20, Membrane=  0, Spike=0, Refractory=1, RefCounter= 5
+# Time=              165000, Current= 20, Membrane=  0, Spike=0, Refractory=1, RefCounter= 6
+# Time=              175000, Current= 20, Membrane=  0, Spike=0, Refractory=1, RefCounter= 7
+# Test Case 2: Threshold crossing - Testing spike generation
+# Time=              185000, Current= 30, Membrane=  0, Spike=0, Refractory=1, RefCounter= 8
+# Time=              195000, Current= 30, Membrane=  0, Spike=0, Refractory=1, RefCounter= 9
+# Time=              205000, Current= 30, Membrane=  0, Spike=0, Refractory=0, RefCounter= 0
+# Time=              215000, Current= 30, Membrane= 30, Spike=0, Refractory=0, RefCounter= 0
+# Time=              225000, Current= 30, Membrane= 58, Spike=0, Refractory=0, RefCounter= 0
+# Time=              235000, Current= 30, Membrane= 86, Spike=0, Refractory=0, RefCounter= 0
+# Time=              245000, Current= 30, Membrane=114, Spike=0, Refractory=0, RefCounter= 0
+# Time=              255000, Current= 30, Membrane=  0, Spike=1, Refractory=1, RefCounter= 0
+# Spike detected at time               255000
+# Test Case 3: Refractory period - Testing neuron doesn't spike during refractory period
+# Time=              265000, Current=255, Membrane=  0, Spike=0, Refractory=1, RefCounter= 1
+# Time=              275000, Current=255, Membrane=  0, Spike=0, Refractory=1, RefCounter= 2
+# Time=              285000, Current=255, Membrane=  0, Spike=0, Refractory=1, RefCounter= 3
+# Time=              295000, Current=255, Membrane=  0, Spike=0, Refractory=1, RefCounter= 4
+# Time=              305000, Current=255, Membrane=  0, Spike=0, Refractory=1, RefCounter= 5
+# Time=              315000, Current=255, Membrane=  0, Spike=0, Refractory=1, RefCounter= 6
+# Time=              325000, Current=255, Membrane=  0, Spike=0, Refractory=1, RefCounter= 7
+# Time=              335000, Current=255, Membrane=  0, Spike=0, Refractory=1, RefCounter= 8
+# Time=              345000, Current=255, Membrane=  0, Spike=0, Refractory=1, RefCounter= 9
+# Time=              355000, Current=255, Membrane=  0, Spike=0, Refractory=0, RefCounter= 0
+# Time=              365000, Current=255, Membrane=255, Spike=0, Refractory=0, RefCounter= 0
+# Time=              375000, Current=255, Membrane=  0, Spike=1, Refractory=1, RefCounter= 0
+# Time=              385000, Current=255, Membrane=  0, Spike=0, Refractory=1, RefCounter= 1
+# Time=              395000, Current=255, Membrane=  0, Spike=0, Refractory=1, RefCounter= 2
+# Time=              405000, Current=255, Membrane=  0, Spike=0, Refractory=1, RefCounter= 3
+# Test Case 4: Post-refractory spiking - Verify neuron can spike again
+# Time=              415000, Current=255, Membrane=  0, Spike=0, Refractory=1, RefCounter= 4
+# Time=              425000, Current=255, Membrane=  0, Spike=0, Refractory=1, RefCounter= 5
+# Time=              435000, Current=255, Membrane=  0, Spike=0, Refractory=1, RefCounter= 6
+# Time=              445000, Current=255, Membrane=  0, Spike=0, Refractory=1, RefCounter= 7
+# Time=              455000, Current=255, Membrane=  0, Spike=0, Refractory=1, RefCounter= 8
+# Time=              465000, Current=255, Membrane=  0, Spike=0, Refractory=1, RefCounter= 9
+# Time=              475000, Current=255, Membrane=  0, Spike=0, Refractory=0, RefCounter= 0
+# Time=              485000, Current=255, Membrane=255, Spike=0, Refractory=0, RefCounter= 0
+# Time=              495000, Current=255, Membrane=  0, Spike=1, Refractory=1, RefCounter= 0
+# Time=              505000, Current=255, Membrane=  0, Spike=0, Refractory=1, RefCounter= 1
+# Time=              515000, Current=  0, Membrane=  0, Spike=0, Refractory=1, RefCounter= 2
+# Time=              525000, Current=  0, Membrane=  0, Spike=0, Refractory=1, RefCounter= 3
+# Time=              535000, Current=  0, Membrane=  0, Spike=0, Refractory=1, RefCounter= 4
+# Time=              545000, Current=  0, Membrane=  0, Spike=0, Refractory=1, RefCounter= 5
+# Simulation completed successfully
+# ** Note: $finish    : lif_neuron_tb.sv(86)
+#    Time: 555 ns  Iteration: 0  Instance: /lif_neuron_tb
+# 1
+# Break in Module lif_neuron_tb at lif_neuron_tb.sv line 86
+# Printing not supported.
