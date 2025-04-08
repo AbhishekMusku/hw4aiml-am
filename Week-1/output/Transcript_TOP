@@ -1,0 +1,344 @@
+couldn't open "transcript": permission denied
+# Reading pref.tcl
+# //  Questa Sim-64
+# //  Version 2024.2 win64 May 20 2024
+# //
+# // Unpublished work. Copyright 2024 Siemens
+# //
+# // This material contains trade secrets or otherwise confidential information
+# // owned by Siemens Industry Software Inc. or its affiliates (collectively,
+# // "SISW"), or its licensors. Access to and use of this information is strictly
+# // limited as set forth in the Customer's applicable agreements with SISW.
+# //
+# // This material may not be copied, distributed, or otherwise disclosed outside
+# // of the Customer's facilities without the express written permission of SISW,
+# // and may not be used in any way not expressly authorized by SISW.
+# //
+cd {\\thoth.cecs.pdx.edu\Home02\abhimusk\Desktop\HW4AIML\w12}
+do run.do
+# QuestaSim-64 vlog 2024.2 Compiler 2024.05 May 20 2024
+# Start time: 02:22:13 on Apr 07,2025
+# vlog -reportprogress 300 lif.sv "+acc" 
+# -- Compiling module lif_neuron
+# 
+# Top level modules:
+# 	lif_neuron
+# End time: 02:22:14 on Apr 07,2025, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2024.2 Compiler 2024.05 May 20 2024
+# Start time: 02:22:14 on Apr 07,2025
+# vlog -reportprogress 300 spiking_nn_2layer.sv "+acc" 
+# -- Compiling module spiking_nn_2layer
+# 
+# Top level modules:
+# 	spiking_nn_2layer
+# End time: 02:22:14 on Apr 07,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2024.2 Compiler 2024.05 May 20 2024
+# Start time: 02:22:14 on Apr 07,2025
+# vlog -reportprogress 300 spi_interface.sv "+acc" 
+# -- Compiling module spi_interface
+# 
+# Top level modules:
+# 	spi_interface
+# End time: 02:22:14 on Apr 07,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2024.2 Compiler 2024.05 May 20 2024
+# Start time: 02:22:14 on Apr 07,2025
+# vlog -reportprogress 300 snn_top.sv "+acc" 
+# -- Compiling module snn_top
+# 
+# Top level modules:
+# 	snn_top
+# End time: 02:22:15 on Apr 07,2025, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2024.2 Compiler 2024.05 May 20 2024
+# Start time: 02:22:15 on Apr 07,2025
+# vlog -reportprogress 300 snn_top_tb.sv "+acc" 
+# -- Compiling module snn_top_tb
+# 
+# Top level modules:
+# 	snn_top_tb
+# End time: 02:22:15 on Apr 07,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim work.snn_top_tb 
+# Start time: 02:22:15 on Apr 07,2025
+# ** Note: (vsim-3812) Design is being optimized...
+# Support of the MGLS_LICENSE_FILE and LM_LICENSE_FILE licensing environment variables will be discontinued starting with the 2025.1 release. Please update to using the SALT_LICENSE_SERVER variable.
+# Please contact Siemens EDA Customer Support (https://support.sw.siemens.com/) for assistance.
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility. The +acc switch would be deprecated in a future release.
+# ** Error (suppressible): spiking_nn_2layer.sv(88): (vopt-2912) Port 'THRESHOLD' not found in module 'lif_neuron' (4th connection).
+# ** Error (suppressible): spiking_nn_2layer.sv(88): (vopt-2912) Port 'LEAK_RATE' not found in module 'lif_neuron' (5th connection).
+# ** Error (suppressible): spiking_nn_2layer.sv(88): (vopt-2912) Port 'REFRAC_PERIOD' not found in module 'lif_neuron' (6th connection).
+# Optimization failed
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=3, Warnings=1.
+# Error loading design
+# Error: Error loading design
+#        Pausing macro execution
+# MACRO ./run.do PAUSED at line 9
+do run.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# Errors: 0, Warnings: 1
+# QuestaSim-64 vlog 2024.2 Compiler 2024.05 May 20 2024
+# Start time: 02:26:40 on Apr 07,2025
+# vlog -reportprogress 300 lif.sv "+acc" 
+# -- Compiling module lif_neuron
+# ** Error: (vlog-13069) lif.sv(3): near ")": syntax error, unexpected ')'.
+# End time: 02:26:40 on Apr 07,2025, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 0
+# ** Error: C:/questasim64_2024.2/win64/vlog failed.
+# Error in macro ./run.do line 4
+# C:/questasim64_2024.2/win64/vlog failed.
+#     while executing
+# "vlog lif.sv +acc"
+do run.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# Errors: 0, Warnings: 1
+# QuestaSim-64 vlog 2024.2 Compiler 2024.05 May 20 2024
+# Start time: 02:26:57 on Apr 07,2025
+# vlog -reportprogress 300 lif.sv "+acc" 
+# -- Compiling module lif_neuron
+# ** Error: lif.sv(15): Range must be bounded by constant expressions.
+# End time: 02:26:58 on Apr 07,2025, Elapsed time: 0:00:01
+# Errors: 1, Warnings: 0
+# ** Error: C:/questasim64_2024.2/win64/vlog failed.
+# Error in macro ./run.do line 4
+# C:/questasim64_2024.2/win64/vlog failed.
+#     while executing
+# "vlog lif.sv +acc"
+do run.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# Errors: 0, Warnings: 1
+# QuestaSim-64 vlog 2024.2 Compiler 2024.05 May 20 2024
+# Start time: 02:27:28 on Apr 07,2025
+# vlog -reportprogress 300 lif.sv "+acc" 
+# -- Compiling module lif_neuron
+# 
+# Top level modules:
+# 	lif_neuron
+# End time: 02:27:28 on Apr 07,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2024.2 Compiler 2024.05 May 20 2024
+# Start time: 02:27:28 on Apr 07,2025
+# vlog -reportprogress 300 spiking_nn_2layer.sv "+acc" 
+# -- Compiling module spiking_nn_2layer
+# 
+# Top level modules:
+# 	spiking_nn_2layer
+# End time: 02:27:29 on Apr 07,2025, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2024.2 Compiler 2024.05 May 20 2024
+# Start time: 02:27:29 on Apr 07,2025
+# vlog -reportprogress 300 spi_interface.sv "+acc" 
+# -- Compiling module spi_interface
+# 
+# Top level modules:
+# 	spi_interface
+# End time: 02:27:29 on Apr 07,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2024.2 Compiler 2024.05 May 20 2024
+# Start time: 02:27:29 on Apr 07,2025
+# vlog -reportprogress 300 snn_top.sv "+acc" 
+# -- Compiling module snn_top
+# 
+# Top level modules:
+# 	snn_top
+# End time: 02:27:29 on Apr 07,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2024.2 Compiler 2024.05 May 20 2024
+# Start time: 02:27:29 on Apr 07,2025
+# vlog -reportprogress 300 snn_top_tb.sv "+acc" 
+# -- Compiling module snn_top_tb
+# 
+# Top level modules:
+# 	snn_top_tb
+# End time: 02:27:29 on Apr 07,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim work.snn_top_tb 
+# Start time: 02:22:15 on Apr 07,2025
+# ** Note: (vsim-3812) Design is being optimized...
+# Support of the MGLS_LICENSE_FILE and LM_LICENSE_FILE licensing environment variables will be discontinued starting with the 2025.1 release. Please update to using the SALT_LICENSE_SERVER variable.
+# Please contact Siemens EDA Customer Support (https://support.sw.siemens.com/) for assistance.
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility. The +acc switch would be deprecated in a future release.
+# ** Error (suppressible): spiking_nn_2layer.sv(88): (vopt-2912) Port 'LEAK_RATE' not found in module 'lif_neuron' (5th connection).
+# ** Error (suppressible): spiking_nn_2layer.sv(88): (vopt-2912) Port 'REFRAC_PERIOD' not found in module 'lif_neuron' (6th connection).
+# Optimization failed
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=7, Warnings=2.
+# Error loading design
+# Error: Error loading design
+#        Pausing macro execution
+# MACRO ./run.do PAUSED at line 9
+do run.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# Errors: 0, Warnings: 1
+# QuestaSim-64 vlog 2024.2 Compiler 2024.05 May 20 2024
+# Start time: 02:28:39 on Apr 07,2025
+# vlog -reportprogress 300 lif.sv "+acc" 
+# -- Compiling module lif_neuron
+# 
+# Top level modules:
+# 	lif_neuron
+# End time: 02:28:39 on Apr 07,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2024.2 Compiler 2024.05 May 20 2024
+# Start time: 02:28:39 on Apr 07,2025
+# vlog -reportprogress 300 spiking_nn_2layer.sv "+acc" 
+# -- Compiling module spiking_nn_2layer
+# 
+# Top level modules:
+# 	spiking_nn_2layer
+# End time: 02:28:39 on Apr 07,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2024.2 Compiler 2024.05 May 20 2024
+# Start time: 02:28:39 on Apr 07,2025
+# vlog -reportprogress 300 spi_interface.sv "+acc" 
+# -- Compiling module spi_interface
+# 
+# Top level modules:
+# 	spi_interface
+# End time: 02:28:40 on Apr 07,2025, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2024.2 Compiler 2024.05 May 20 2024
+# Start time: 02:28:40 on Apr 07,2025
+# vlog -reportprogress 300 snn_top.sv "+acc" 
+# -- Compiling module snn_top
+# 
+# Top level modules:
+# 	snn_top
+# End time: 02:28:40 on Apr 07,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2024.2 Compiler 2024.05 May 20 2024
+# Start time: 02:28:40 on Apr 07,2025
+# vlog -reportprogress 300 snn_top_tb.sv "+acc" 
+# -- Compiling module snn_top_tb
+# 
+# Top level modules:
+# 	snn_top_tb
+# End time: 02:28:40 on Apr 07,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim work.snn_top_tb 
+# Start time: 02:22:15 on Apr 07,2025
+# ** Note: (vsim-3812) Design is being optimized...
+# Support of the MGLS_LICENSE_FILE and LM_LICENSE_FILE licensing environment variables will be discontinued starting with the 2025.1 release. Please update to using the SALT_LICENSE_SERVER variable.
+# Please contact Siemens EDA Customer Support (https://support.sw.siemens.com/) for assistance.
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility. The +acc switch would be deprecated in a future release.
+# ** Note: (vopt-143) Recognized 1 FSM in module "spi_interface(fast)".
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=7, Warnings=3.
+# Loading sv_std.std
+# Loading work.snn_top_tb(fast)
+# Loading work.snn_top(fast)
+# Loading work.spi_interface(fast)
+# Loading work.spiking_nn_2layer(fast)
+# Loading work.lif_neuron(fast)
+# Test Case 1: Configuring neuron parameters
+# Test Case 2: Configuring weights
+# Test Case 3: Single input spike
+# Time=7345000: Input spikes=0001
+# Time=7355000: Input spikes=0001
+# Time=7365000: Input spikes=0001
+# Time=7375000: Input spikes=0001
+# Time=7375000: Output spikes=001
+# Time=7385000: Input spikes=0001
+# Time=7385000: Output spikes=010
+# Time=7395000: Input spikes=0001
+# Time=7405000: Input spikes=0001
+# Time=7415000: Input spikes=0001
+# Time=7425000: Input spikes=0001
+# Time=7435000: Input spikes=0001
+# Time=7445000: Input spikes=0001
+# Time=7445000: Output spikes=100
+# Time=7455000: Input spikes=0001
+# Time=7465000: Input spikes=0001
+# Time=7475000: Input spikes=0001
+# Time=7485000: Input spikes=0001
+# Time=7495000: Input spikes=0001
+# Time=7505000: Input spikes=0001
+# Time=7505000: Output spikes=001
+# Time=7515000: Input spikes=0001
+# Time=7525000: Input spikes=0001
+# Time=7525000: Output spikes=010
+# Time=7535000: Input spikes=0001
+# Test Case 4: Multiple input spikes
+# Time=8045000: Input spikes=0011
+# Time=8055000: Input spikes=0011
+# Time=8065000: Input spikes=0011
+# Time=8075000: Input spikes=0011
+# Time=8075000: Output spikes=111
+# Time=8085000: Input spikes=0011
+# Time=8095000: Input spikes=0011
+# Time=8105000: Input spikes=0011
+# Time=8115000: Input spikes=0011
+# Time=8125000: Input spikes=0011
+# Time=8135000: Input spikes=0011
+# Time=8145000: Input spikes=0011
+# Time=8155000: Input spikes=0011
+# Time=8165000: Input spikes=0011
+# Time=8175000: Input spikes=0011
+# Time=8185000: Input spikes=0011
+# Time=8195000: Input spikes=0011
+# Time=8205000: Input spikes=0011
+# Time=8205000: Output spikes=111
+# Time=8215000: Input spikes=0011
+# Time=8225000: Input spikes=0011
+# Time=8235000: Input spikes=0011
+# Test Case 5: Repeated input patterns
+# Time=8745000: Input spikes=0001
+# Time=8755000: Input spikes=0001
+# Time=8765000: Input spikes=0010
+# Time=8775000: Input spikes=0010
+# Time=8775000: Output spikes=001
+# Time=8785000: Input spikes=0100
+# Time=8785000: Output spikes=010
+# Time=8795000: Input spikes=0100
+# Time=8795000: Output spikes=100
+# Time=8805000: Input spikes=1000
+# Time=8815000: Input spikes=1000
+# Time=8895000: Input spikes=0001
+# Time=8905000: Input spikes=0001
+# Time=8915000: Input spikes=0010
+# Time=8925000: Input spikes=0010
+# Time=8925000: Output spikes=001
+# Time=8935000: Input spikes=0100
+# Time=8935000: Output spikes=010
+# Time=8945000: Input spikes=0100
+# Time=8945000: Output spikes=100
+# Time=8955000: Input spikes=1000
+# Time=8965000: Input spikes=1000
+# Time=9045000: Input spikes=0001
+# Time=9055000: Input spikes=0001
+# Time=9065000: Input spikes=0010
+# Time=9075000: Input spikes=0010
+# Time=9075000: Output spikes=001
+# Time=9085000: Input spikes=0100
+# Time=9085000: Output spikes=010
+# Time=9095000: Input spikes=0100
+# Time=9095000: Output spikes=100
+# Time=9105000: Input spikes=1000
+# Time=9115000: Input spikes=1000
+# Time=9195000: Input spikes=0001
+# Time=9205000: Input spikes=0001
+# Time=9215000: Input spikes=0010
+# Time=9225000: Input spikes=0010
+# Time=9225000: Output spikes=001
+# Time=9235000: Input spikes=0100
+# Time=9235000: Output spikes=010
+# Time=9245000: Input spikes=0100
+# Time=9245000: Output spikes=100
+# Time=9255000: Input spikes=1000
+# Time=9265000: Input spikes=1000
+# Time=9345000: Input spikes=0001
+# Time=9355000: Input spikes=0001
+# Time=9365000: Input spikes=0010
+# Time=9375000: Input spikes=0010
+# Time=9375000: Output spikes=001
+# Time=9385000: Input spikes=0100
+# Time=9385000: Output spikes=010
+# Time=9395000: Input spikes=0100
+# Time=9395000: Output spikes=100
+# Time=9405000: Input spikes=1000
+# Time=9415000: Input spikes=1000
+# Simulation completed successfully
+# ** Note: $finish    : snn_top_tb.sv(144)
+#    Time: 9990 ns  Iteration: 0  Instance: /snn_top_tb
+# 1
+# Break in Module snn_top_tb at snn_top_tb.sv line 144
