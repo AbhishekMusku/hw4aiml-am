@@ -1,32 +1,34 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import imageio.v2 as imageio
+from io import BytesIO
 
-# Sigmoid functions
+# 1. Sigmoid activation
 def sigmoid(x):
     return 1 / (1 + np.exp(-x))
-
 def sigmoid_derivative(x):
     return x * (1 - x)
 
-# NAND data
-X = np.array([[0,0], [0,1], [1,0], [1,1]])
+# 2. NAND gate data
+X = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
 y = np.array([[1], [1], [1], [0]])
 
-# Initialize parameters
+# 3. Init weights, bias
 np.random.seed(42)
 weights = np.random.randn(2, 1)
 bias = np.random.randn(1)
 
-# Training config
-learning_rate = 0.1
+# 4. Config
 epochs = 10000
-plot_interval = 2500  # how often to save decision boundary
+plot_interval = 50
+learning_rate = 0.1
+frames = []  # for storing images in memory
 
-# Mesh for decision surface
+# 5. Grid for decision boundary
 xx, yy = np.meshgrid(np.linspace(-0.5, 1.5, 200), np.linspace(-0.5, 1.5, 200))
 grid_points = np.c_[xx.ravel(), yy.ravel()]
 
-# Train model
+# 6. Training loop with in-memory frame capture
 for epoch in range(epochs):
     z = np.dot(X, weights) + bias
     output = sigmoid(z)
@@ -35,31 +37,33 @@ for epoch in range(epochs):
     weights += learning_rate * np.dot(X.T, adjustment)
     bias += learning_rate * np.sum(adjustment)
 
-    # Plot decision boundary at selected epochs
+    # Save frame to memory buffer
     if epoch % plot_interval == 0 or epoch == epochs - 1:
         z_grid = np.dot(grid_points, weights) + bias
         grid_output = sigmoid(z_grid).reshape(xx.shape)
 
-        plt.figure(figsize=(8, 6))
+        plt.figure(figsize=(6, 5))
         plt.contourf(xx, yy, grid_output, 50, cmap='plasma', alpha=0.9)
         plt.colorbar(label="Output")
 
         for i in range(len(X)):
             color = 'yellow' if y[i][0] == 1 else 'black'
-            plt.scatter(X[i][0], X[i][1], c=color, edgecolors='k', marker='o', s=100)
+            plt.scatter(X[i][0], X[i][1], c=color, edgecolors='k', s=100)
 
-        contour = plt.contour(xx, yy, grid_output, levels=[0.5], colors='cyan', linewidths=2, linestyles='solid')
-        # Skip .collections check; just label directly if this line works
-        try:
-            contour.collections[0].set_label("Decision Boundary")
-        except (AttributeError, IndexError):
-            pass  # silently ignore if no contour lines are drawn
-
-        plt.title(f"Decision Boundary after Epoch {epoch}")
-        plt.xlabel("Input1")
-        plt.ylabel("Input2")
-        plt.legend()
+        plt.contour(xx, yy, grid_output, levels=[0.5], colors='cyan')
+        plt.title(f"Epoch {epoch}")
+        plt.xlabel("Input 1")
+        plt.ylabel("Input 2")
         plt.grid(True)
         plt.tight_layout()
-        plt.show()
 
+        buf = BytesIO()
+        plt.savefig(buf, format='png')
+        plt.close()
+        buf.seek(0)
+        frames.append(imageio.imread(buf))
+        buf.close()
+
+# 7. Write final GIF
+imageio.mimsave("nand_training.gif", frames, duration=0.05)
+print("✅ GIF saved as nand_training.gif")
