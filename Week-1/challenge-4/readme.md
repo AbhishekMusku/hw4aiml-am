@@ -36,3 +36,4 @@ To run the testbenches and simulate the designs:
    do run.do
    ```
 
+## IMPORTANT: For detailed documentation of all prompts, design decisions, and implementation processes, please refer to the PROJECT WIKI.
