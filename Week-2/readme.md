@@ -16,10 +16,6 @@ To run each challenge:
 cd challenge-6
 python filename.py
 
-# For Challenge #7 (Visualization)
-cd challenge-7
-python filename.py
-
 # For Challenge #8 (Multi-layer Network)
 cd challenge-8
 python filename.py
