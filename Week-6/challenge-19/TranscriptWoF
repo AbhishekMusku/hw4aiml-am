@@ -1,0 +1,150 @@
+couldn't open "transcript": permission denied
+# Reading pref.tcl
+# //  Questa Sim-64
+# //  Version 2024.2 win64 May 20 2024
+# //
+# // Unpublished work. Copyright 2024 Siemens
+# //
+# // This material contains trade secrets or otherwise confidential information
+# // owned by Siemens Industry Software Inc. or its affiliates (collectively,
+# // "SISW"), or its licensors. Access to and use of this information is strictly
+# // limited as set forth in the Customer's applicable agreements with SISW.
+# //
+# // This material may not be copied, distributed, or otherwise disclosed outside
+# // of the Customer's facilities without the express written permission of SISW,
+# // and may not be used in any way not expressly authorized by SISW.
+# //
+cd {\\thoth.cecs.pdx.edu\Home02\abhimusk\Desktop\HW4AIML\w6}
+do run.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# Errors: 0, Warnings: 1
+# QuestaSim-64 vlog 2024.2 Compiler 2024.05 May 20 2024
+# Start time: 03:21:50 on May 10,2025
+# vlog -reportprogress 300 bln.sv "+acc" 
+# -- Compiling module binary_lif_neuron
+# 
+# Top level modules:
+# 	binary_lif_neuron
+# End time: 03:21:50 on May 10,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2024.2 Compiler 2024.05 May 20 2024
+# Start time: 03:21:50 on May 10,2025
+# vlog -reportprogress 300 tb.sv "+acc" 
+# -- Compiling module tb
+# 
+# Top level modules:
+# 	tb
+# End time: 03:21:50 on May 10,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim work.tb 
+# Start time: 03:21:50 on May 10,2025
+# ** Note: (vsim-3812) Design is being optimized...
+# Support of the MGLS_LICENSE_FILE and LM_LICENSE_FILE licensing environment variables will be discontinued starting with the 2025.1 release. Please update to using the SALT_LICENSE_SERVER variable.
+# Please contact Siemens EDA Customer Support (https://support.sw.siemens.com/) for assistance.
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility. The +acc switch would be deprecated in a future release.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.tb(fast)
+# Loading work.binary_lif_neuron(fast)
+# Time=5: Input=0, Potential=0.000000, Lambda=0.500000, SPIKE=0
+# Time=15: Input=0, Potential=0.000000, Lambda=0.500000, SPIKE=0
+# 
+# === Test Case 1: Constant input below threshold (lambda=0.5) ===
+# Time=25: Input=0, Potential=0.000000, Lambda=0.500000, SPIKE=0
+# Time=35: Input=1, Potential=0.000000, Lambda=0.500000, SPIKE=0
+# Time=45: Input=1, Potential=1.000000, Lambda=0.500000, SPIKE=0
+# Time=55: Input=1, Potential=1.500000, Lambda=0.500000, SPIKE=0
+# Time=65: Input=1, Potential=1.750000, Lambda=0.500000, SPIKE=0
+# Time=75: Input=1, Potential=1.875000, Lambda=0.500000, SPIKE=0
+# Time=85: Input=1, Potential=1.937500, Lambda=0.500000, SPIKE=0
+# Time=95: Input=1, Potential=1.968750, Lambda=0.500000, SPIKE=0
+# Time=105: Input=1, Potential=1.984375, Lambda=0.500000, SPIKE=0
+# Time=115: Input=1, Potential=1.992188, Lambda=0.500000, SPIKE=0
+# Time=125: Input=1, Potential=1.996094, Lambda=0.500000, SPIKE=0
+# Time=135: Input=0, Potential=1.996094, Lambda=0.500000, SPIKE=0
+# Time=145: Input=0, Potential=0.996094, Lambda=0.500000, SPIKE=0
+# Time=155: Input=0, Potential=0.496094, Lambda=0.500000, SPIKE=0
+# Time=165: Input=0, Potential=0.246094, Lambda=0.500000, SPIKE=0
+# Time=175: Input=0, Potential=0.121094, Lambda=0.500000, SPIKE=0
+# Time=185: Input=0, Potential=0.000000, Lambda=0.500000, SPIKE=0
+# 
+# === Test Case 2: Input that accumulates until reaching threshold (lambda=0.8) ===
+# Time=195: Input=0, Potential=0.000000, Lambda=0.796875, SPIKE=0
+# Time=205: Input=1, Potential=0.000000, Lambda=0.796875, SPIKE=0
+# Time=215: Input=1, Potential=1.000000, Lambda=0.796875, SPIKE=0
+# Time=225: Input=1, Potential=1.796875, Lambda=0.796875, SPIKE=0
+# Time=235: Input=1, Potential=2.429688, Lambda=0.796875, SPIKE=0
+# Time=245: Input=1, Potential=2.933594, Lambda=0.796875, SPIKE=0
+# Time=255: Input=1, Potential=3.335938, Lambda=0.796875, SPIKE=0
+# Time=265: Input=1, Potential=3.656250, Lambda=0.796875, SPIKE=0
+# Time=275: Input=1, Potential=3.910156, Lambda=0.796875, SPIKE=0
+# Time=285: Input=1, Potential=4.113281, Lambda=0.796875, SPIKE=0
+# Time=295: Input=1, Potential=0.000000, Lambda=0.796875, SPIKE=1 [NEURON FIRED!]
+# Time=305: Input=1, Potential=1.000000, Lambda=0.796875, SPIKE=0
+# Time=315: Input=1, Potential=1.796875, Lambda=0.796875, SPIKE=0
+# Time=325: Input=1, Potential=2.429688, Lambda=0.796875, SPIKE=0
+# Time=335: Input=1, Potential=2.933594, Lambda=0.796875, SPIKE=0
+# Time=345: Input=1, Potential=3.335938, Lambda=0.796875, SPIKE=0
+# Time=355: Input=1, Potential=3.656250, Lambda=0.796875, SPIKE=0
+# Time=365: Input=1, Potential=3.910156, Lambda=0.796875, SPIKE=0
+# Time=375: Input=1, Potential=4.113281, Lambda=0.796875, SPIKE=0
+# Time=385: Input=1, Potential=0.000000, Lambda=0.796875, SPIKE=1 [NEURON FIRED!]
+# Time=395: Input=1, Potential=1.000000, Lambda=0.796875, SPIKE=0
+# Time=405: Input=1, Potential=1.796875, Lambda=0.796875, SPIKE=0
+# Time=415: Input=1, Potential=2.429688, Lambda=0.796875, SPIKE=0
+# Time=425: Input=1, Potential=2.933594, Lambda=0.796875, SPIKE=0
+# Time=435: Input=1, Potential=3.335938, Lambda=0.796875, SPIKE=0
+# Time=445: Input=1, Potential=3.656250, Lambda=0.796875, SPIKE=0
+# Time=455: Input=0, Potential=3.910156, Lambda=0.796875, SPIKE=0
+# Time=465: Input=0, Potential=3.113281, Lambda=0.796875, SPIKE=0
+# Time=475: Input=0, Potential=2.480469, Lambda=0.796875, SPIKE=0
+# Time=485: Input=0, Potential=1.976562, Lambda=0.796875, SPIKE=0
+# Time=495: Input=0, Potential=1.574219, Lambda=0.796875, SPIKE=0
+# Time=505: Input=0, Potential=0.000000, Lambda=0.796875, SPIKE=0
+# 
+# === Test Case 3: Leakage with no input (lambda=0.8) ===
+# Time=515: Input=0, Potential=0.000000, Lambda=0.796875, SPIKE=0
+# Time=525: Input=1, Potential=0.000000, Lambda=0.796875, SPIKE=0
+# Time=535: Input=1, Potential=1.000000, Lambda=0.796875, SPIKE=0
+# Time=545: Input=1, Potential=1.796875, Lambda=0.796875, SPIKE=0
+# Time=555: Input=1, Potential=2.429688, Lambda=0.796875, SPIKE=0
+# Time=565: Input=1, Potential=2.933594, Lambda=0.796875, SPIKE=0
+# Time=575: Input=1, Potential=3.335938, Lambda=0.796875, SPIKE=0
+# Time=585: Input=1, Potential=3.656250, Lambda=0.796875, SPIKE=0
+# Time=595: Input=1, Potential=3.910156, Lambda=0.796875, SPIKE=0
+# Time=605: Input=1, Potential=4.113281, Lambda=0.796875, SPIKE=0
+# Time=615: Input=1, Potential=0.000000, Lambda=0.796875, SPIKE=1 [NEURON FIRED!]
+# Time=625: Input=1, Potential=1.000000, Lambda=0.796875, SPIKE=0
+# --- Leakage starts now ---
+# Time=635: Input=1, Potential=1.796875, Lambda=0.796875, SPIKE=0
+# Time=645: Input=0, Potential=2.429688, Lambda=0.796875, SPIKE=0
+# Time=655: Input=0, Potential=1.933594, Lambda=0.796875, SPIKE=0
+# Time=665: Input=0, Potential=1.539062, Lambda=0.796875, SPIKE=0
+# Time=675: Input=0, Potential=1.222656, Lambda=0.796875, SPIKE=0
+# Time=685: Input=0, Potential=0.972656, Lambda=0.796875, SPIKE=0
+# Time=695: Input=0, Potential=0.773438, Lambda=0.796875, SPIKE=0
+# Time=705: Input=0, Potential=0.613281, Lambda=0.796875, SPIKE=0
+# Time=715: Input=0, Potential=0.488281, Lambda=0.796875, SPIKE=0
+# Time=725: Input=0, Potential=0.386719, Lambda=0.796875, SPIKE=0
+# Time=735: Input=0, Potential=0.304688, Lambda=0.796875, SPIKE=0
+# Time=745: Input=0, Potential=0.242188, Lambda=0.796875, SPIKE=0
+# Time=755: Input=0, Potential=0.191406, Lambda=0.796875, SPIKE=0
+# Time=765: Input=0, Potential=0.152344, Lambda=0.796875, SPIKE=0
+# Time=775: Input=0, Potential=0.121094, Lambda=0.796875, SPIKE=0
+# Time=785: Input=0, Potential=0.093750, Lambda=0.796875, SPIKE=0
+# Time=795: Input=0, Potential=0.000000, Lambda=0.796875, SPIKE=0
+# 
+# === Test Case 4: Strong input causing immediate spiking (lambda=0.8) ===
+# Time=805: Input=0, Potential=0.000000, Lambda=0.796875, SPIKE=0
+# Time=815: Input=0, Potential=0.000000, Lambda=0.796875, SPIKE=0
+# Time=825: Input=1, Potential=0.000000, Lambda=0.796875, SPIKE=0
+# Time=835: Input=0, Potential=1.000000, Lambda=0.796875, SPIKE=0
+# Time=845: Input=0, Potential=0.796875, Lambda=0.796875, SPIKE=0
+# Time=855: Input=0, Potential=0.632812, Lambda=0.796875, SPIKE=0
+# Time=865: Input=0, Potential=0.503906, Lambda=0.796875, SPIKE=0
+# Time=875: Input=0, Potential=0.398438, Lambda=0.796875, SPIKE=0
+# Simulation complete
+# ** Note: $finish    : tb.sv(125)
+#    Time: 875 ns  Iteration: 1  Instance: /tb
+# 1
+# Break in Module tb at tb.sv line 125
