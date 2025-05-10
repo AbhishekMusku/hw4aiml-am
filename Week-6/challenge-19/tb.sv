@@ -109,15 +109,17 @@ module tb;
         rst_n = 0;
         #20 rst_n = 1;
         
-        // Test Case 4: Strong input causing immediate spiking (with lambda=0.8)
-        $display("\n=== Test Case 4: Strong input causing immediate spiking (lambda=0.8) ===");
-        // Set potential very close to threshold
-        @(posedge clk);
-        uut.potential = THRESHOLD - (1 << (FRAC_BITS-4)); // Set to ~3.94
-        @(posedge clk);
-        input_spike = 1; // This will push it over threshold
-        @(posedge clk);
-        input_spike = 0;
+		// Test Case 4: Strong input causing immediate spiking (with lambda=0.8)
+		$display("\n=== Test Case 4: Strong input causing immediate spiking (lambda=0.8) ===");
+		// Instead of trying to directly set the potential, we'll use a very strong input
+		@(posedge clk);
+		input_spike = 1;
+		force uut.potential = 16'h0390; // Force to ~3.56 (close to threshold)
+		@(posedge clk);
+		release uut.potential;
+		input_spike = 1; // This should push it over threshold
+		@(posedge clk);
+		input_spike = 0;
         
         // End simulation
         repeat(5) @(posedge clk);
