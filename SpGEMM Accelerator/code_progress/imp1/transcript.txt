@@ -1,0 +1,84 @@
+do run.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# Errors: 0, Warnings: 1
+# ** Warning: (vdel-134) Unable to remove locked optimized design "_opt".  Locker is abhimusk@REMOTELAB10.
+# ** Warning: (vdel-134) Unable to remove locked optimized design "_opt1".  Locker is abhimusk@mo.ece.pdx.edu.
+# ** Warning: (vlib-34) Library already exists at "work".
+# Errors: 0, Warnings: 1
+# QuestaSim-64 vlog 2021.3_1 Compiler 2021.08 Aug 15 2021
+# Start time: 02:49:36 on May 16,2025
+# vlog -reportprogress 300 -sv Matraptor_Full_Final1.sv 
+# -- Compiling package matraptor_pkg
+# -- Compiling module p1_merge_only
+# -- Importing package matraptor_pkg
+# -- Compiling module matraptor_core
+# 
+# Top level modules:
+# 	matraptor_core
+# End time: 02:49:36 on May 16,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2021.3_1 Compiler 2021.08 Aug 15 2021
+# Start time: 02:49:36 on May 16,2025
+# vlog -reportprogress 300 -sv tb_matraptor_core.sv 
+# -- Compiling module tb_matraptor_core
+# 
+# Top level modules:
+# 	tb_matraptor_core
+# End time: 02:49:37 on May 16,2025, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# End time: 02:49:37 on May 16,2025, Elapsed time: 0:03:33
+# Errors: 0, Warnings: 0
+# vsim work.tb_matraptor_core 
+# Start time: 02:49:37 on May 16,2025
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# Loading sv_std.std
+# Loading work.matraptor_pkg(fast)
+# Loading work.tb_matraptor_core(fast)
+# 425000 ns : PE0 row_done - dumping queue contents
+# Queue 0 depth=6:
+#   [0] val=1156.000000, col=0
+#   [1] val=1156.000000, col=0
+#   [2] val=484.000000, col=0
+#   [3] val=9.000000, col=0
+#   [4] val=961.000000, col=0
+#   [5] val=2401.000000, col=0
+# Queue 1 depth=6:
+#   [0] val=1496.000000, col=1
+#   [1] val=782.000000, col=9
+#   [2] val=714.000000, col=33
+#   [3] val=170.000000, col=49
+#   [4] val=782.000000, col=81
+#   [5] val=1116.000000, col=1
+# Queue 2 depth=8:
+#   [0] val=1258.000000, col=74
+#   [1] val=814.000000, col=2
+#   [2] val=279.000000, col=10
+#   [3] val=930.000000, col=34
+#   [4] val=930.000000, col=34
+#   [5] val=899.000000, col=98
+#   [6] val=2156.000000, col=18
+#   [7] val=2156.000000, col=18
+# Queue 3 depth=2:
+#   [0] val=442.000000, col=99
+#   [1] val=1364.000000, col=35
+# Queue 4 depth=0:
+# Queue 5 depth=3:
+#   [0] val=1122.000000, col=21
+#   [1] val=1122.000000, col=21
+#   [2] val=36.000000, col=85
+# Queue 6 depth=3:
+#   [0] val=1156.000000, col=6
+#   [1] val=238.000000, col=22
+#   [2] val=1470.000000, col=94
+# Queue 7 depth=7:
+#   [0] val=1088.000000, col=55
+#   [1] val=1088.000000, col=55
+#   [2] val=1632.000000, col=7
+#   [3] val=1394.000000, col=39
+#   [4] val=1034.000000, col=95
+#   [5] val=1034.000000, col=95
+#   [6] val=2401.000000, col=7
+# ** Note: $finish    : tb_matraptor_core.sv(172)
+#    Time: 425 ns  Iteration: 1  Instance: /tb_matraptor_core
+# 1
+# Break at tb_matraptor_core.sv line 172
