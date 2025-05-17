@@ -71,9 +71,10 @@ module p1_merge_only #(
     logic  [PTR_W:0]    n_rd_ptr   [NQ];
 
     // helper
-    function automatic logic is_full(input logic [PTR_W:0] ptr);
-        return (ptr[PTR_W] != rd_ptr[ptr[PTR_W-1:0]][PTR_W]);
-    endfunction
+	function automatic logic is_full(input int q_idx);
+		return ((wr_ptr[q_idx][PTR_W-1:0] == rd_ptr[q_idx][PTR_W-1:0]) && 
+				(wr_ptr[q_idx][PTR_W] != rd_ptr[q_idx][PTR_W]));
+	endfunction
 
     logic               flush_row_done, n_flush_row_done;
 
@@ -103,11 +104,12 @@ module p1_merge_only #(
     //-----------------------------------------------------------
     // Combinational next‑state
     //-----------------------------------------------------------
-    always_comb begin
         // helper decls before statements
         int   tgt_q;
         logic row_boundary;
         logic queue_full_hit;
+
+    always_comb begin
 
         // defaults
         n_state          = state;
@@ -122,8 +124,8 @@ module p1_merge_only #(
 
         // helpers
         tgt_q          = in_col % NQ;
-        row_boundary   = in_valid && (in_row != cur_row || in_last);
         queue_full_hit = in_valid && is_full(tgt_q);
+        row_boundary   = in_valid && (in_row != cur_row || in_last) || queue_full_hit;
 
         unique case (state)
             //---------------------------------------------------
@@ -153,8 +155,8 @@ module p1_merge_only #(
                 row_done = flush_row_done;
                 // clear pointers
                 for (int q=0; q<NQ; q++) begin
-                    n_wr_ptr[q] = '0;
-                    n_rd_ptr[q] = '0;
+                    //n_wr_ptr[q] = '0;
+                    //n_rd_ptr[q] = '0;
                 end
                 n_state = S_FILL;
             end

@@ -16,14 +16,14 @@ module tb_matraptor_core;
     localparam int DATA_W   = 32;
     localparam int IDX_W    = 16;
     localparam int NQ       = 8;
-    localparam int Q_DEPTH  = 16;  // small for sim speed
+    localparam int Q_DEPTH  = 256;  // small for sim speed
     localparam int NUM_PES  = 1;   // debug with single PE
 
     //----------------------------------------------------------------
     // 2. Clock / reset
     //----------------------------------------------------------------
     logic clk = 0;
-    always #5 clk = ~clk;  // 200 MHz
+    always #2.5 clk = ~clk;  // 200 MHz
 
     logic rst_n = 0;
     initial begin
@@ -71,7 +71,7 @@ module tb_matraptor_core;
     typedef enum logic [1:0] {F_OPEN, F_SEND, F_DONE} fstate_t;
     fstate_t fstate;
     int      idle_cnt;
-	
+
     always_ff @(posedge clk) begin
         if (!rst_n) begin
             in_valid <= 0;
