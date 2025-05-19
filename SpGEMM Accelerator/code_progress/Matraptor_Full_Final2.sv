@@ -66,6 +66,11 @@ module p1_merge_only #(
     logic  [PTR_W:0]    n_wr_ptr   [NQ];
     logic  [PTR_W:0]    n_rd_ptr   [NQ];
 
+        int   tgt_q;
+        logic row_boundary;
+        logic queue_full_hit;
+        logic final_queue_reached;
+
     // helper functions
     function automatic logic is_full(input int q_idx);
         return ((wr_ptr[q_idx][PTR_W-1:0] == rd_ptr[q_idx][PTR_W-1:0]) && 
@@ -73,6 +78,7 @@ module p1_merge_only #(
     endfunction
 
     logic               flush_row_done, n_flush_row_done;
+
 
     //-----------------------------------------------------------
     // NEW: Vector boundary detection logic
@@ -108,20 +114,28 @@ module p1_merge_only #(
             first_element   <= n_first_element;
             flush_row_done  <= n_flush_row_done;
             for (int q=0; q<NQ; q++) begin
+				if(!final_queue_reached) begin
                 wr_ptr[q] <= n_wr_ptr[q];
+				end
                 rd_ptr[q] <= n_rd_ptr[q];
             end
         end
     end
+	
+	
+	
+	// In always_ff: Actually write to memory
+	always_ff @(posedge clk) begin
+		if (in_valid && vector_boundary || in_valid) begin
+			queue_mem[tgt_q][wr_ptr[tgt_q][PTR_W-1:0]] = '{val: in_val, col: in_col};
+			$display("Time : %d		QUEUE[%d][%d] = %d", $time, tgt_q, wr_ptr[tgt_q][PTR_W-1:0], queue_mem[tgt_q][wr_ptr[tgt_q][PTR_W-1:0]].col, queue_mem[tgt_q][wr_ptr[tgt_q][PTR_W-1:0]].val);
+		end
+	end
 
     //-----------------------------------------------------------
     // Combinational next‑state
     //-----------------------------------------------------------
         // MODIFIED: Target queue is now the current_queue, not col % NQ
-        int   tgt_q;
-        logic row_boundary;
-        logic queue_full_hit;
-        logic final_queue_reached;
     always_comb begin
         // defaults
         n_state          = state;
@@ -132,7 +146,7 @@ module p1_merge_only #(
         n_current_queue  = current_queue;
         n_first_element  = first_element;
         n_flush_row_done = 1'b0;
-		tgt_q = current_queue;
+		tgt_q = n_current_queue;
         for (int q=0; q<NQ; q++) begin
             n_wr_ptr[q] = wr_ptr[q];
             n_rd_ptr[q] = rd_ptr[q];
@@ -141,9 +155,8 @@ module p1_merge_only #(
         // Keep existing logic for row boundary and queue full
         queue_full_hit = in_valid && is_full(tgt_q);
         row_boundary   = in_valid && (in_row != cur_row || in_last) || queue_full_hit;
-        
         // NEW: Stop if reached final queue (helper queue at index NQ-1)
-        final_queue_reached = (current_queue >= (NQ-1));
+		final_queue_reached = (n_current_queue >= (NQ-1));
 
         unique case (state)
             //---------------------------------------------------
@@ -169,10 +182,11 @@ module p1_merge_only #(
                 end else if (in_valid && vector_boundary) begin
                     // NEW: Vector boundary detected - advance to next queue
                     n_current_queue = current_queue + 1;
+					final_queue_reached = (n_current_queue >= (NQ-1));
+					tgt_q = n_current_queue;
                     n_prev_col = in_col;
                     n_first_element = 1'b0;
 					in_ready = 1'b1;
-                    queue_mem[tgt_q][wr_ptr[tgt_q][PTR_W-1:0]] = '{val: in_val, col: in_col};
                     n_wr_ptr[tgt_q] = wr_ptr[tgt_q] + 1;
                     n_cur_row       = in_row;
                     n_prev_col      = in_col;      // NEW: Track previous column
@@ -180,7 +194,6 @@ module p1_merge_only #(
                 end else if (in_valid) begin
                     // MODIFIED: Normal queue write to current_queue instead of col % NQ
                     in_ready = 1'b1;
-                    queue_mem[tgt_q][wr_ptr[tgt_q][PTR_W-1:0]] = '{val: in_val, col: in_col};
                     n_wr_ptr[tgt_q] = wr_ptr[tgt_q] + 1;
                     n_cur_row       = in_row;
                     n_prev_col      = in_col;      // NEW: Track previous column
