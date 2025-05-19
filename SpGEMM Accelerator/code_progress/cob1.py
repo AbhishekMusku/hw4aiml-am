@@ -148,7 +148,7 @@ def main():
     # Generate test data
     print("Generating test data...")
     # Generate a larger test dataset
-    user_item_matrix = generate_test_data(n_users=10000, n_items=20000, density=0.02)
+    user_item_matrix = generate_test_data(n_users=10000, n_items=10000, density=0.05)
     print(f"Matrix density: {user_item_matrix.nnz / (user_item_matrix.shape[0] * user_item_matrix.shape[1]):.4f}")
     
     # Run collaborative filtering

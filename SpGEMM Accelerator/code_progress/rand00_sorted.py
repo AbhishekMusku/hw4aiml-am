@@ -323,7 +323,7 @@ def produce_products_stream(A_csr: sparse.csr_matrix, AT_csr: sparse.csr_matrix,
 # ──────────────────────────────────────────────────────────────────────────
 def main():
     # —— USER CONFIG ————————————————————————————————————————————————
-    M, K        = 10000, 10000          # A is M×K,   B=Aᵀ is K×M
+    M, K        = 1000, 1000          # A is M×K,   B=Aᵀ is K×M
     DENS_A      = 0.05
     VAL_LOW, VAL_HIGH = 1, 50           # Value range for non-zeros
     SEED      = 123                   # Random seed for reproducibility
@@ -357,6 +357,7 @@ def main():
         # Calculate B = A.T and ensure it's CSR
         print("Calculating B = A.T and converting to CSR...")
         AT = A.transpose().tocsr()
+        AT.sort_indices() # Sort indices for consistent ordering
         t_gen = time.time() - t0 # End generation timer
         print(f"  A : {A.shape}, nnz={A.nnz:,}")
         print(f"  AT: {AT.shape}, nnz={AT.nnz:,} (B=A.T)")
@@ -409,6 +410,12 @@ def main():
             # Generate all triples in memory
             triples = produce_products_prealloc(A, AT)
             t_prod = time.time() - t0 # End timer for product creation
+            
+            # ----------  NEW BLOCK  ----------
+            # primary key: row_idx_i, secondary: col_idx_j
+            order = np.lexsort((triples[:, 2], triples[:, 1]))  # (col, row)
+            triples = triples[order]
+            # ---------------------------------
             print(f"  produced {triples.shape[0]:,} triples "
                   f"in {t_prod:.2f} s ({triples.nbytes/1e6:.1f} MB)")
 
