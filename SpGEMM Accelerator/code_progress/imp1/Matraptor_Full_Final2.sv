@@ -1,6 +1,9 @@
-//Queing without SORTING WORKING SUCCESSFULLY (DIRECTLY MAPS QUEUES USING in-ROW % NQ
----------------------------------------------------------------
-// Processing element – p1_merge_only (modified for sequential vector filling)
+//CLAUDE 5 Direct Column Mapping with Accumulation - WORKING DESIGN MODIFIED
+//---------------------------------------------------------------
+// Processing element – p1_merge_only (modified for direct column addressing + accumulation)
+// * Maps column directly to memory location: queue[col>>8][col[7:0]]
+// * Supports columns 0-2047 (8 queues × 256 entries)
+// * Automatic accumulation when same column appears multiple times
 //---------------------------------------------------------------
 module p1_merge_only #(
     parameter int DATA_W  = 32,
@@ -26,8 +29,9 @@ module p1_merge_only #(
     // Local types / constants
     //-----------------------------------------------------------
     typedef struct packed {
-        logic [DATA_W-1:0] val;
-        logic [IDX_W-1:0]  col;
+        logic                valid;    // ADDED: Position has valid data
+        logic [DATA_W-1:0]   val;      // Data value (accumulated)
+        logic [IDX_W-1:0]    col;      // Column index (for verification)
     } entry_t;
 
     localparam int PTR_W = $clog2(Q_DEPTH);
@@ -44,25 +48,24 @@ module p1_merge_only #(
     
 	
     entry_t queue_mem   [NQ][Q_DEPTH];
-    logic  [PTR_W:0]    wr_ptr     [NQ];      // extra bit for full
-    logic  [PTR_W:0]    rd_ptr     [NQ];
-    logic  [PTR_W:0]    n_wr_ptr   [NQ];
-    logic  [PTR_W:0]    n_rd_ptr   [NQ];
-
-        logic [QID_W-1:0] tgt_q, qsel;
-        logic row_boundary;
-        logic queue_full_hit;
-
-    // helper functions
-    function automatic logic is_full(input int q_idx);
-        return ((n_wr_ptr[q_idx][PTR_W-1:0] == n_rd_ptr[q_idx][PTR_W-1:0]) && 
-                (n_wr_ptr[q_idx][PTR_W] != n_rd_ptr[q_idx][PTR_W]));
-    endfunction
+    
+    // MODIFIED: Direct addressing variables (replacing pointer management)
+    logic [QID_W-1:0]   tgt_q, qsel;
+    logic [PTR_W-1:0]   tgt_addr;              // Direct address in queue
+    logic               addr_valid;            // Address within supported range
+    logic               accumulate_mode;       // Location already has data
+    
+    logic               row_boundary;
+    logic               queue_full_hit;        // Keep for compatibility, but won't be used
 
     logic               flush_row_done, n_flush_row_done;
 
-	assign qsel = in_col % NQ;
+    // MODIFIED: Direct column-to-address mapping
+	assign qsel = in_col[10:8];        // Upper 3 bits select queue (supports up to col 2047)
 	assign tgt_q = qsel;
+    assign tgt_addr = in_col[7:0];     // Lower 8 bits select address in queue
+    assign addr_valid = (in_col < 2048); // Only support columns 0-2047
+    assign accumulate_mode = queue_mem[tgt_q][tgt_addr].valid && addr_valid;
 
     //-----------------------------------------------------------
     // Sequential
@@ -73,30 +76,49 @@ module p1_merge_only #(
 			cur_row         <= '0;
             first_element   <= 1'b1;
             flush_row_done  <= 1'b0;
+            // ADDED: Clear all valid bits
             for (int q=0; q<NQ; q++) begin
-                wr_ptr[q] <= '0;
-                rd_ptr[q] <= '0;
+                for (int addr=0; addr<Q_DEPTH; addr++) begin
+                    queue_mem[q][addr].valid <= 1'b0;
+                end
             end
         end else begin
             state           <= n_state;     
 			cur_row         <= n_cur_row;
             first_element   <= n_first_element;
             flush_row_done  <= n_flush_row_done;
-            for (int q=0; q<NQ; q++) begin
-                wr_ptr[q] <= n_wr_ptr[q];
-                rd_ptr[q] <= n_rd_ptr[q];
-            end
         end
     end
 	
 	
 	
-	// In always_ff: Actually write to memory
+	// MODIFIED: Direct addressing with accumulation
 	always_ff @(posedge clk) begin
-		if (in_valid && !queue_full_hit) begin
-			queue_mem[tgt_q][wr_ptr[tgt_q][PTR_W-1:0]] <= '{val: in_val, col: in_col};
-			$monitor("Time : %d		QUEUE[%d][%d] = %d", $time, tgt_q, wr_ptr[tgt_q][PTR_W-1:0], queue_mem[tgt_q][wr_ptr[tgt_q][PTR_W-1:0]].col, queue_mem[tgt_q][wr_ptr[tgt_q][PTR_W-1:0]].val);
+		if (in_valid && addr_valid && !row_boundary && in_ready) begin
+            if (accumulate_mode) begin
+                // ACCUMULATE: Add to existing value
+                queue_mem[tgt_q][tgt_addr].val <= queue_mem[tgt_q][tgt_addr].val + in_val;
+                $display("Time: %0t - ACCUMULATE QUEUE[%0d][%0d] col=%0d: %0d + %0d = %0d", 
+                         $time, tgt_q, tgt_addr, in_col,
+                         queue_mem[tgt_q][tgt_addr].val, in_val,
+                         queue_mem[tgt_q][tgt_addr].val + in_val);
+            end else begin
+                // INSERT: New entry at direct address
+                queue_mem[tgt_q][tgt_addr] <= '{valid: 1'b1, val: in_val, col: in_col};
+                $display("Time: %0t - INSERT QUEUE[%0d][%0d] col=%0d val=%0d", 
+                         $time, tgt_q, tgt_addr, in_col, in_val);
+            end
 		end
+        
+        // ADDED: Clear valid bits when starting new row
+        if (state == S_ROW_FLUSH && flush_row_done) begin
+            for (int q=0; q<NQ; q++) begin
+                for (int addr=0; addr<Q_DEPTH; addr++) begin
+                    queue_mem[q][addr].valid <= 1'b0;
+                end
+            end
+            $display("Time: %0t - CLEARED all queue valid bits for new row", $time);
+        end
 	end
 
     //-----------------------------------------------------------
@@ -110,15 +132,12 @@ module p1_merge_only #(
 		n_cur_row        = cur_row;
         n_first_element  = first_element;
         n_flush_row_done = 1'b0;
-        for (int q=0; q<NQ; q++) begin
-            n_wr_ptr[q] = wr_ptr[q];
-            n_rd_ptr[q] = rd_ptr[q];
-        end
 
-        // Keep existing logic for row boundary and queue full
-        queue_full_hit = in_valid && is_full(tgt_q);
-        row_boundary   = (!first_element) && in_valid && (in_row != cur_row ) || queue_full_hit;
-		$display("time = %d row_boundary = %d	in_valid = %d	in_row = %d	n_cur_row = %d	queue_full_hit = %d", $time, row_boundary, in_valid,	in_row,	n_cur_row,	queue_full_hit);
+        // MODIFIED: No queue full condition with direct addressing
+        queue_full_hit = 1'b0;  // Never full with direct addressing
+        row_boundary   = (!first_element) && in_valid && (in_row != cur_row);
+		$display("time = %d row_boundary = %d	in_valid = %d	in_row = %d	cur_row = %d	addr_valid = %d", 
+                 $time, row_boundary, in_valid, in_row, cur_row, addr_valid);
 
         unique case (state)
             //---------------------------------------------------
@@ -128,19 +147,21 @@ module p1_merge_only #(
             end
             //---------------------------------------------------
             S_FILL: begin
-				if (row_boundary || queue_full_hit) begin
-                    // Keep existing row boundary and queue full logic
-					$display("Inside SFILL time = %d row_boundary = %d	in_row = %d	n_cur_row = %d	", $time, row_boundary, in_row,	n_cur_row);
+				if (row_boundary) begin
+					$display("Inside SFILL time = %d row_boundary = %d	in_row = %d	cur_row = %d", 
+                             $time, row_boundary, in_row, cur_row);
                     n_state          = S_ROW_FLUSH;
-                    n_flush_row_done = row_boundary; // pulse for real row change
-                    if (row_boundary)
-                        n_cur_row = in_row;          // capture new row ID
-                end else if (in_valid) begin
-                    // MODIFIED: Normal queue write to current_queue instead of col % NQ
+                    n_flush_row_done = row_boundary; // pulse for row change
+                    n_cur_row = in_row;      // capture new row ID
+                end else if (in_valid && addr_valid) begin
+                    // MODIFIED: Direct addressing - always ready if address valid
                     in_ready = 1'b1;
-                    n_wr_ptr[tgt_q] = wr_ptr[tgt_q] + 1;
                     n_cur_row       = in_row;
                     n_first_element = 1'b0;
+                end else if (in_valid && !addr_valid) begin
+                    // Column out of range - reject
+                    in_ready = 1'b0;
+                    $display("Time: %0t - REJECTED col=%0d (out of range 0-2047)", $time, in_col);
                 end else begin
                     // No valid input
                     in_ready = 1'b0;
@@ -150,13 +171,8 @@ module p1_merge_only #(
             S_ROW_FLUSH: begin
                 in_ready = 1'b0;          // hold upstream one cycle
                 row_done = flush_row_done;
-                // clear pointers (kept commented as in original)
-                for (int q=0; q<NQ; q++) begin
                 n_first_element = 1'b1;
-                    //n_wr_ptr[q] = '0;
-                    //n_rd_ptr[q] = '0;
-                end
-                n_state = S_FILL;
+                n_state = S_ROW_FLUSH;
             end
             //---------------------------------------------------
         endcase
@@ -166,6 +182,7 @@ endmodule
 
 //---------------------------------------------------------------
 // Top‑level core – routes a flat input stream into NUM_PES PEs
+// (UNCHANGED from original)
 //---------------------------------------------------------------
 module matraptor_core #(
     parameter int DATA_W   = 32,
