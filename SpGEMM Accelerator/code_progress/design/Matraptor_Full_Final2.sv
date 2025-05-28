@@ -1,10 +1,17 @@
-// Direct Column Mapping with Accumulation + PHASE 2 BITMAP MERGE
 //---------------------------------------------------------------
-// Processing element – p1_merge_only (modified for direct column addressing + accumulation + merge)
-// * Maps column directly to memory location: queue[col>>8][col[7:0]]
+// Single PE MatRaptor - Phase 1 Fill + Phase 2 Merge (Sequential, No Double Buffer)
+//---------------------------------------------------------------
+// Implements row-wise product SpGEMM with continuous multi-row support
+// Based on "MatRaptor: A Sparse-Sparse Matrix Multiplication Accelerator"
+//
+// Features:
+// * Direct column mapping: queue[col>>8][col[7:0]] 
 // * Supports columns 0-2047 (8 queues × 256 entries)
-// * Automatic accumulation when same column appears multiple times
+// * Automatic accumulation for repeated column indices
+// * Continuous row processing with automatic boundary detection
+// * Phase 1: Fill queues with accumulation
 // * Phase 2: Bitmap-based merge with sorted output
+// * Processes multiple rows sequentially without external control
 //---------------------------------------------------------------
 module p1_merge_only #(
     parameter int DATA_W  = 32,
@@ -61,6 +68,7 @@ module p1_merge_only #(
     //-----------------------------------------------------------
     state_t             state, n_state;
     logic [IDX_W-1:0]   cur_row, n_cur_row;
+	logic [IDX_W-1:0]   merge_row, n_merge_row;  // ADD THIS LINE
     logic               first_element, n_first_element;  // Track if this is first element ever
     
     entry_t queue_mem   [NQ][Q_DEPTH];
@@ -123,6 +131,7 @@ module p1_merge_only #(
         if (!rst_n) begin
             state           <= S_RESET;
             cur_row         <= '0;
+			merge_row       <= '0; 
             first_element   <= 1'b1;
             flush_row_done  <= 1'b0;
             // PHASE 2 ADDITIONS
@@ -132,6 +141,7 @@ module p1_merge_only #(
         end else begin
             state           <= n_state;     
             cur_row         <= n_cur_row;
+			merge_row       <= n_merge_row; 
             first_element   <= n_first_element;
             flush_row_done  <= n_flush_row_done;
             // PHASE 2 ADDITIONS
@@ -185,6 +195,7 @@ module p1_merge_only #(
         n_flush_row_done = 1'b0;
         
         // PHASE 2 ADDITIONS: defaults
+		n_merge_row      = merge_row;
         n_merge_queue    = merge_queue;
         n_merge_pos      = merge_pos;
         n_merge_active   = merge_active;
@@ -207,27 +218,37 @@ module p1_merge_only #(
                 n_first_element = 1'b1; // Reset first element flag
             end
             //---------------------------------------------------
-            S_FILL: begin
-                if (row_boundary) begin
-                    $display("Inside SFILL time = %d row_boundary = %d	in_row = %d	cur_row = %d", 
-                             $time, row_boundary, in_row, cur_row);
-                    n_state          = S_ROW_FLUSH;
-                    n_flush_row_done = row_boundary; // pulse for row change
-                    n_cur_row = in_row;      // capture new row ID
-                end else if (in_valid && addr_valid) begin
-                    // MODIFIED: Direct addressing - always ready if address valid
-                    in_ready = 1'b1;
-                    n_cur_row       = in_row;
-                    n_first_element = 1'b0;
-                end else if (in_valid && !addr_valid) begin
-                    // Column out of range - reject
-                    in_ready = 1'b0;
-                    $display("Time: %0t - REJECTED col=%0d (out of range 0-2047)", $time, in_col);
-                end else begin
-                    // No valid input
-                    in_ready = 1'b0;
-                end
-            end
+			S_FILL: begin
+				if (row_boundary) begin
+					// Normal row boundary - process previous row
+					$display("Inside SFILL time = %d row_boundary = %d	in_row = %d	cur_row = %d", 
+							 $time, row_boundary, in_row, cur_row);
+					n_state          = S_ROW_FLUSH;
+					n_flush_row_done = row_boundary;
+					n_merge_row = cur_row; 
+					n_cur_row = in_row;
+				end else if (in_valid && addr_valid) begin
+					// Accept ALL valid elements first (including last)
+					in_ready = 1'b1;
+					n_cur_row = in_row;
+					n_first_element = 1'b0;
+					
+					// AFTER accepting, check if it was the last element
+					if (in_last) begin
+						// Next cycle, trigger flush for this final row
+						n_state = S_ROW_FLUSH;
+						n_flush_row_done = 1'b1;
+						n_merge_row = in_row;
+						$display("Time: %0t - LAST ELEMENT ACCEPTED, will flush row %0d next cycle", 
+								 $time, in_row);
+					end
+				end else if (in_valid && !addr_valid) begin
+					in_ready = 1'b0;
+					$display("Time: %0t - REJECTED col=%0d (out of range 0-2047)", $time, in_col);
+				end else begin
+					in_ready = 1'b0;
+				end
+			end
             //---------------------------------------------------
             S_ROW_FLUSH: begin
                 in_ready = 1'b0;          // hold upstream one cycle
@@ -293,11 +314,13 @@ module p1_merge_only #(
 				end
 			end
             //---------------------------------------------------
-            S_MERGE_NEXT_Q: begin
-                // Not used in this implementation, but kept for completeness
-                n_state = S_MERGE_NEXT_Q;
-				
-            end
+			S_MERGE_NEXT_Q: begin
+				// Transition back to S_FILL for next row processing
+				n_state = S_FILL;
+				n_first_element = 1'b1;  // Ready for first element of next row
+				n_merge_active = 1'b0;   // Clear merge active flag
+				$display("Time: %0t - Row merge complete, ready for next row", $time);
+			end
             //---------------------------------------------------
             default: n_state = S_RESET;
         endcase
