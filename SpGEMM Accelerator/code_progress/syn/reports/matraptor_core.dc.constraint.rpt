@@ -1,0 +1,38 @@
+ 
+****************************************
+Report : constraint
+        -all_violators
+Design : matraptor_core
+Version: Q-2019.12-SP3
+Date   : Tue Jun  3 18:00:34 2025
+****************************************
+
+
+   max_transition
+
+                             Required        Actual
+   Net                      Transition     Transition        Slack
+   -----------------------------------------------------------------
+   PES_0__U_PE/n582             0.20           0.25          -0.05  (VIOLATED)
+       PIN :   PES_0__U_PE/U92/Y
+                                0.20           0.25          -0.05  (VIOLATED)
+   PES_0__U_PE/n23442           0.20           0.21          -0.01  (VIOLATED)
+       PIN :   PES_0__U_PE/U91/Y
+                                0.20           0.21          -0.01  (VIOLATED)
+
+   -----------------------------------------------------------------
+   Total                      2                  -0.06  
+
+   max_capacitance
+
+                             Required        Actual
+   Net                      Capacitance    Capacitance       Slack
+   -----------------------------------------------------------------
+   PES_0__U_PE/n582            64.00         189.48        -125.48  (VIOLATED)
+   PES_0__U_PE/n23442          64.00         160.62         -96.62  (VIOLATED)
+   PES_0__U_PE/n40353           8.00          10.13          -2.13  (VIOLATED)
+
+   -----------------------------------------------------------------
+   Total                      3                -224.23  
+
+1

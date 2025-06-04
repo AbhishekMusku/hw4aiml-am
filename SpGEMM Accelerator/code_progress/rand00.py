@@ -323,8 +323,8 @@ def produce_products_stream(A_csr: sparse.csr_matrix, AT_csr: sparse.csr_matrix,
 # ──────────────────────────────────────────────────────────────────────────
 def main():
     # —— USER CONFIG ————————————————————————————————————————————————
-    M, K        = 10000, 10000          # A is M×K,   B=Aᵀ is K×M
-    DENS_A      = 0.05
+    M, K        = 1000, 1000          # A is M×K,   B=Aᵀ is K×M
+    DENS_A      = 0.01
     VAL_LOW, VAL_HIGH = 1, 50           # Value range for non-zeros
     SEED      = 123                   # Random seed for reproducibility
     DTYPE     = np.float32            # Data type for matrix elements

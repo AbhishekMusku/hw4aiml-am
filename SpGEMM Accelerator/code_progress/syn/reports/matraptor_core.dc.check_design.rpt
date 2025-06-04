@@ -1,0 +1,31 @@
+ 
+****************************************
+check_design summary:
+Version:     Q-2019.12-SP3
+Date:        Tue Jun  3 17:58:07 2025
+****************************************
+
+                   Name                                            Total
+--------------------------------------------------------------------------------
+Inputs/Outputs                                                     16
+    Unconnected ports (LINT-28)                                     8
+    Constant outputs (LINT-52)                                      8
+--------------------------------------------------------------------------------
+
+Warning: In design 'p1_merge_only_DATA_W32_IDX_W16_NQ4_Q_DEPTH128', port 'out_col[15]' is not connected to any nets. (LINT-28)
+Warning: In design 'p1_merge_only_DATA_W32_IDX_W16_NQ4_Q_DEPTH128', port 'out_col[14]' is not connected to any nets. (LINT-28)
+Warning: In design 'p1_merge_only_DATA_W32_IDX_W16_NQ4_Q_DEPTH128', port 'out_col[13]' is not connected to any nets. (LINT-28)
+Warning: In design 'p1_merge_only_DATA_W32_IDX_W16_NQ4_Q_DEPTH128', port 'out_col[12]' is not connected to any nets. (LINT-28)
+Warning: In design 'p1_merge_only_DATA_W32_IDX_W16_NQ4_Q_DEPTH128', port 'out_col[11]' is not connected to any nets. (LINT-28)
+Warning: In design 'p1_merge_only_DATA_W32_IDX_W16_NQ4_Q_DEPTH128', port 'out_col[10]' is not connected to any nets. (LINT-28)
+Warning: In design 'p1_merge_only_DATA_W32_IDX_W16_NQ4_Q_DEPTH128', port 'out_col[9]' is not connected to any nets. (LINT-28)
+Warning: In design 'p1_merge_only_DATA_W32_IDX_W16_NQ4_Q_DEPTH128', port 'out_last' is not connected to any nets. (LINT-28)
+Warning: In design 'matraptor_core', output port 'out_col[15]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'matraptor_core', output port 'out_col[14]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'matraptor_core', output port 'out_col[13]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'matraptor_core', output port 'out_col[12]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'matraptor_core', output port 'out_col[11]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'matraptor_core', output port 'out_col[10]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'matraptor_core', output port 'out_col[9]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'matraptor_core', output port 'out_last[0]' is connected directly to 'logic 0'. (LINT-52)
+1
