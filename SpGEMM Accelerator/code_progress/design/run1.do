@@ -1,8 +1,8 @@
 vlib work 
 vdel -all
 vlib work
-vlog -sv claude_HASH_6.sv +acc
-vlog -sv tb_matraptor_core_CLAUDE_6.sv +acc
+vlog -sv Matraptor_Full_Final2.sv +acc
+vlog -sv tb_matraptor_core.sv +acc
 vsim work.tb_matraptor_core
 do wave.do
 #add wave /tb_matraptor_core/dut/PES[0]/U_PE/queue_bitmap;

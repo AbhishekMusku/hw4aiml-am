@@ -1,0 +1,2 @@
+data_load_time_sec,n_users,n_items,n_ratings,matrix_density,k_similar_items,collaborative_filtering_time_sec,spgemm_core_time_sec,recommendations_shape_users,recommendations_shape_items,recommendations_nnz,recommendations_density,top_recommendations_time_sec,n_recommendations_per_user,total_recommendations_generated,total_execution_time_sec
+0.05880594253540039,500,500,250000,1.0,10,0.033353567123413086,0.008518695831298828,500,500,95296,0.381184,0.01250314712524414,5,2500,0.10817384719848633

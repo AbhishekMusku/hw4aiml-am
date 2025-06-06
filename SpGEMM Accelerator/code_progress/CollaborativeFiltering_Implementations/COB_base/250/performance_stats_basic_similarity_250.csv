@@ -1,0 +1,2 @@
+data_load_time_sec,collaborative_filtering_time_sec,spgemm_core_time_sec,top_recommendations_time_sec,total_execution_time_sec,n_users,n_items,k_similar_items,n_recommendations_per_user
+0.003145933151245117,13.19658088684082,6.084383249282837,0.004999399185180664,13.204726219177246,250,250,10,5
