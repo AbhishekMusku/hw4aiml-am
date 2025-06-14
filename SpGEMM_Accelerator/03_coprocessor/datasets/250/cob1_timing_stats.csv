@@ -1,0 +1,2 @@
+data_loading_time_sec,normalization_time_sec,partial_products_generation_time_sec,phase1_time_sec,phase2_time_sec,total_execution_time_sec
+0.06851339340209961,0.007573604583740234,0.04236960411071777,0.050694942474365234,0.04236960411071777,0.12872910499572754

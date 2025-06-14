@@ -1,0 +1,11 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1749855032" />
+    <testcase classname="test_spi" file="/home/abhimusk/common/Desktop/HW4AIML/COOP_SAFE/test_spi.py" lineno="137" name="test_full_collaborative_filtering_pipeline" ratio_time="26312.554344730757" sim_time_ns="126843770.001" time="4820.655886888504">
+      <failure message="Test failed with RANDOM_SEED=1749855032" />
+    </testcase>
+    <testcase classname="test_spi" file="/home/abhimusk/common/Desktop/HW4AIML/COOP_SAFE/test_spi.py" lineno="222" name="test_spi_only" ratio_time="nan" sim_time_ns="0" time="0">
+      <skipped />
+    </testcase>
+  </testsuite>
+</testsuites>

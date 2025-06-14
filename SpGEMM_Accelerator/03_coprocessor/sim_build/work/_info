@@ -1,0 +1,122 @@
+m255
+K4
+z2
+!s99 nomlopt
+!s11f vlog 2021.3_1 2021.08, Aug 15 2021
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/abhimusk/common/Desktop/HW4AIML/COOP_SAFE
+T_opt
+!s110 1749855031
+Vl4GK8NBkEFE4jBe:8Ie:i3
+04 17 4 work tb_matraptor_core fast 0
+=1-525400b63b2a-684cab36-d8677-2caa
+!s124 OEM100
+o-quiet +acc -auto_acc_if_foreign -work work
+Z1 tCvgOpt 0
+n@_opt
+OL;O;2021.3_1;73
+vmatraptor_core
+Z2 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+Z3 !s110 1749855030
+!i10b 1
+!s100 FfL_D[mZ?f99Xa]<6jlM`0
+I2n7Ofcl`W>3mOKS?32;`e3
+S1
+R0
+Z4 w1748420682
+Z5 8Matraptor.sv
+Z6 FMatraptor.sv
+!i122 0
+L0 335 69
+Z7 VDg1SIo80bB@j0V0VzS_@n1
+Z8 OL;L;2021.3_1;73
+r1
+!s85 0
+31
+Z9 !s108 1749855030.000000
+Z10 !s107 simple_spi_interface.sv|Matraptor.sv|tb_matraptor_core.sv|
+Z11 !s90 -work|work|+define+COCOTB_SIM|-sv|-timescale|1ns/1ps|-mfcu|-sv|+define+COCOTB_SIM=1|+acc|tb_matraptor_core.sv|Matraptor.sv|simple_spi_interface.sv|
+!i113 0
+Z12 o-work work -sv -timescale 1ns/1ps -mfcu -sv +acc -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z13 !s92 -work work +define+COCOTB_SIM -sv -timescale 1ns/1ps -mfcu -sv +define+COCOTB_SIM=1 +acc -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R1
+vp1_merge_only
+R2
+R3
+!i10b 1
+!s100 BOHA`5oaiX77bB3Y3cKFZ2
+IGMR^kWW7>0dE1=Na@CVGU3
+S1
+R0
+R4
+R5
+R6
+!i122 0
+L0 16 313
+R7
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 0
+R12
+R13
+R1
+vsimple_spi_interface
+R2
+R3
+!i10b 1
+!s100 agOMWdKY@26fi0bB`<of93
+IkdDiz9j7zSg0K8z>@jVcM1
+S1
+R0
+w1749208631
+8simple_spi_interface.sv
+Fsimple_spi_interface.sv
+!i122 0
+L0 4 157
+R7
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 0
+R12
+R13
+R1
+vtb_matraptor_core
+R2
+R3
+!i10b 1
+!s100 =f_D7:2_Eh77[ThUYe]KZ3
+IMD]?74c6]zjgK4`LjV04k0
+S1
+R0
+w1749705618
+8tb_matraptor_core.sv
+Ftb_matraptor_core.sv
+!i122 0
+L0 6 299
+R7
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 0
+R12
+R13
+R1

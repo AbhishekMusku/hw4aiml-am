@@ -1,0 +1,2 @@
+total_frames_processed,total_bytes_transferred,hw_execution_time_sec,hw_throughput_kbps,sw_preprocessing_sec,sw_postprocessing_sec,total_pipeline_time_sec
+41719,375471,0.12682291,23684.742764536782,0.0506949424743652,0.0150976181030272,0.19261547057739242
