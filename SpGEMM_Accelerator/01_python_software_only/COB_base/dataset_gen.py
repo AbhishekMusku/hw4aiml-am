@@ -1,3 +1,10 @@
+"""
+Synthetic Dataset Generator for Collaborative Filtering Testing
+
+Generates sparse user-item matrices with configurable density and saves complete 
+CSV/NPY files (including zeros) for benchmarking MatRaptor SpGEMM acceleration.
+"""
+
 import numpy as np
 from scipy import sparse
 import pandas as pd

@@ -1,5 +1,36 @@
 //====================================================================
-// Test‑bench for MatRaptor with SPI Interface
+// MatRaptor Core Testbench with SPI Interface and Performance Measurement
+//====================================================================
+//
+// FUNCTIONALITY:
+// - SPI-driven testbench for MatRaptor sparse matrix accelerator
+// - Hardware execution timing measurement for performance analysis
+// - Automatic completion detection and output verification
+//
+// TEST FLOW:
+// - Cocotb Python script drives SPI frames (value, row, col, last_flag)
+// - Hardware processes partial products with timing measurement
+// - Outputs captured to CSV for verification
+//
+// TIMING MEASUREMENT:
+// - Start: First valid input accepted
+// - Stop: Final row merge completion (S_MERGE_NEXT_Q state)
+// - Precision: Nanosecond resolution via $time
+//
+// COMPLETION DETECTION:
+// - Monitors SPI input completion (in_last flag)
+// - Tracks PE state machine transitions
+// - Automatic termination when all rows processed
+//
+// INTERFACES:
+// - SPI: Variable frequency from cocotb
+// - System: 500MHz clock for MatRaptor core
+// - Output: CSV logging (row,col,value format)
+//
+// SAFETY:
+// - 10ms watchdog timeout
+// - State deadlock detection
+// - Graceful file handle cleanup
 //====================================================================
 `timescale 1ns/1ps
 

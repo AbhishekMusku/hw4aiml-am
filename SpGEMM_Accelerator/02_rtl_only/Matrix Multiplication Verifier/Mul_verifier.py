@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-pan.py – SpGEMM regression checker (multi-row, multi-column).
+Mul_verifier.py – SpGEMM regression checker (multi-row, multi-column).
 
 Default run (no args):
-    python pan.py          # uses ./in.csv  and  ./out.csv → writes ./result.csv
+    python Mul_verifier.py          # uses ./in.csv  and  ./out.csv → writes ./result.csv
 
 Optional override:
-    python pan.py my_in.csv my_out.csv my_result.csv
+    python Mul_verifier.py my_in.csv my_out.csv my_result.csv
 
 CSV outputs
 -----------

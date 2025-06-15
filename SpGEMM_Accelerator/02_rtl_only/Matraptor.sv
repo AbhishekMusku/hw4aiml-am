@@ -1,18 +1,46 @@
-//---------------------------------------------------------------
-// Single PE MatRaptor - Phase 1 Fill + Phase 2 Merge (Sequential, No Double Buffer)
-//---------------------------------------------------------------
-// Implements row-wise product SpGEMM with continuous multi-row support
-// Based on "MatRaptor: A Sparse-Sparse Matrix Multiplication Accelerator"
+//=======================================================================
+// MatRaptor SpGEMM Accelerator Core - Single PE Implementation
+//=======================================================================
+// Implements row-wise product sparse matrix multiplication (SpGEMM) with
+// continuous multi-row processing capability. Based on "MatRaptor: A 
+// Sparse-Sparse Matrix Multiplication Accelerator" architecture.
 //
-// Features:
-// * Direct column mapping: queue[col>>8][col[7:0]] 
-// * Supports columns 0-2047 (8 queues × 256 entries)
-// * Automatic accumulation for repeated column indices
-// * Continuous row processing with automatic boundary detection
-// * Phase 1: Fill queues with accumulation
-// * Phase 2: Bitmap-based merge with sorted output
-// * Processes multiple rows sequentially without external control
-//---------------------------------------------------------------
+// FUNCTIONALITY:
+// * Phase 1: Fill queues with partial products and automatic accumulation
+// * Phase 2: Bitmap-based merge producing sorted column-ordered output
+// * Direct column mapping: queue[col[10:8]][col[7:0]] for 0-2047 columns
+// * Sequential row processing with automatic boundary detection
+//
+// INTERFACE PROTOCOLS:
+// * Input: Streaming partial products via valid/ready handshaking
+// * Output: Sorted sparse matrix results via valid/ready handshaking
+// * SPI Integration: Receives data from 25MHz SPI @ simple_spi_interface
+// * Backpressure: Full pipeline backpressure support with in_ready/out_ready
+//
+// TIMING REQUIREMENTS:
+// * System Clock: 500MHz (2ns period) - all internal operations
+// * Reset: Asynchronous assert, synchronous de-assert (negedge rst_n)
+// * Setup/Hold: 1 cycle latency for input acceptance when in_ready high
+// * Output Latency: Variable based on queue fill and merge complexity
+//
+// CLOCK DOMAINS & RESET STRATEGY:
+// * Single clock domain: All logic operates on 'clk' (500MHz system clock)
+// * Async reset: rst_n asserted asynchronously, released synchronously
+// * SPI clock crossing handled upstream in simple_spi_interface module
+//
+// NON-OBVIOUS IMPLEMENTATION CHOICES:
+// * Direct addressing instead of CAM: queue[col>>8][col[7:0]] for efficiency
+// * Bitmap tracking: 256-bit vectors per queue for fast empty detection
+// * No double buffering: Sequential Phase1→Phase2 for area optimization
+// * Column range limit: Supports cols 0-2047 only (hardware constraint)
+// * Priority encoder: Linear search in bitmap for simplicity over performance
+//
+// PARAMETERS:
+// * DATA_W=32: Data width for values (partial products)
+// * IDX_W=16: Index width for row/column addressing  
+// * NQ=8: Number of queues (supports 8×256=2048 columns max)
+// * Q_DEPTH=256: Entries per queue (direct-mapped by col[7:0])
+//=======================================================================
 module p1_merge_only #(
     parameter int DATA_W  = 32,
     parameter int IDX_W   = 16,

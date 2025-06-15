@@ -1,10 +1,37 @@
 //====================================================================
-// Test‑bench for MatRaptor with Output Monitoring (Modified for S_MERGE_NEXT_Q)
-// -------------------------------------------------------------------
-//  * Reads triples <float>,<row>,<col> from "in.csv".
-//  * Monitors output interface during merge phase
-//  * Finishes simulation when design reaches S_MERGE_NEXT_Q state
-//  * Captures and displays all output values
+// MatRaptor SpGEMM Accelerator Testbench with CSV Integration
+//====================================================================
+// Comprehensive verification environment for MatRaptor core with end-to-end
+// data flow validation using CSV input/output files.
+//
+// FUNCTIONALITY:
+// * CSV-driven stimulus: Reads partial products from "in.csv"
+// * Output validation: Captures sorted results to "out.csv" 
+// * State monitoring: Tracks PE state transitions and completion
+// * End-to-end verification: Complete pipeline validation with timing
+//
+// INTERFACE PROTOCOLS:
+// * Input: Valid/ready handshaking with DUT input interface
+// * Output: Always-ready consumer with full output capture
+// * File I/O: CSV format with (value,row,col) tuples
+// * Termination: Automatic finish on S_MERGE_NEXT_Q completion
+//
+// TIMING & CLOCK DOMAINS:
+// * Test Clock: 200MHz (5ns period) - single clock domain
+// * Reset Strategy: 5-cycle async assert, sync de-assert
+// * Stimulus Timing: Back-to-back when DUT ready, else stalled
+// * Output Monitoring: Immediate capture on valid/ready handshake
+//
+// TEST METHODOLOGY:
+// * Stimulus: CSV file parsing with automatic last-flag generation
+// * Verification: Output comparison via captured results
+// * Completion: State-based termination (S_MERGE_NEXT_Q detection)
+// * Debug: Comprehensive state transition and data flow logging
+//
+// FILE SPECIFICATIONS:
+// * Input: "in.csv" - Format: value,row_idx,col_idx (comment lines with #)
+// * Output: "out.csv" - Format: row,col,value (sorted by column)
+// * Watchdog: 10ms timeout with diagnostic information
 //====================================================================
 `timescale 1ns/1ps
 

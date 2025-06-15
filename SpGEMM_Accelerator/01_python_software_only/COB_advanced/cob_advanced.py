@@ -4,14 +4,17 @@ import pandas as pd
 import time
 
 """
-Item-Based Collaborative Filtering with CSV Input/Output
+Advanced Sparse Collaborative Filtering Implementation
+
+Implements item-based collaborative filtering using optimized SciPy sparse matrices.
+Serves as performance baseline for comparing against MatRaptor hardware acceleration.
 
 INPUT:
-- user_item_matrix.csv: User-item ratings matrix in COO format (user_id, item_id, rating)
+- user_item_matrix_complete.csv: Complete user-item ratings matrix (user_id, item_id, rating)
 
 OUTPUTS:
 - recommendations.csv: Top N recommendations per user (user_id, item_id, predicted_rating)
-- performance_stats.csv: Processing time and matrix statistics
+- performance_stats.csv: Detailed timing and matrix statistics for benchmarking
 """
 
 def load_user_item_matrix_from_csv(filename):

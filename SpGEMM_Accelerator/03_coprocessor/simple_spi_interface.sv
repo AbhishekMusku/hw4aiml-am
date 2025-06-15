@@ -1,5 +1,30 @@
 //================================================================
-// SPI Interface - receives 9-byte frames from Python (FULLY FIXED)
+// SPI Interface Module - Python to MatRaptor Bridge
+//================================================================
+// Hardware-software interface receiving 9-byte frames from Python
+// cocotb testbench and delivering parsed data to MatRaptor core.
+//
+// FUNCTIONALITY:
+// * Frame reception: 72-bit SPI frames with MSB-first transmission
+// * Data parsing: Extracts value/row/col/flags from received frames
+// * Clock crossing: Safe transfer from SPI domain to system domain
+// * Backpressure: Waits for MatRaptor ready before frame consumption
+//
+// INTERFACE PROTOCOLS:
+// * SPI: Standard 4-wire (CLK/CS/MOSI) with 25MHz clock from Python
+// * MatRaptor: Valid/ready handshaking to downstream core
+// * Frame format: [VALUE 32b][ROW 16b][COL 16b][FLAGS 8b]
+//
+// TIMING & CLOCK DOMAINS:
+// * SPI Clock: 25MHz from Python cocotb testbench
+// * System Clock: 500MHz for MatRaptor core (20:1 ratio)
+// * Reset: Async assert/sync release on both domains
+// * Clock Crossing: Toggle-based with 2-FF synchronizer
+//
+// IMPLEMENTATION NOTES:
+// * Frame buffering: Complete 72-bit capture before parsing
+// * Edge detection: Toggle method for reliable clock crossing
+// * Error handling: Out-of-range frames logged but not processed
 //================================================================
 module simple_spi_interface #(
     parameter DATA_W = 32,

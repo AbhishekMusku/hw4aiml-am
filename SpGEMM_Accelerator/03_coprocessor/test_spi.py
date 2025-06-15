@@ -1,3 +1,69 @@
+"""
+MatRaptor Sparse Matrix Accelerator - Complete Pipeline Testbench
+================================================================
+
+OVERVIEW:
+This cocotb testbench implements a comprehensive end-to-end test for the MatRaptor
+sparse matrix multiplication accelerator within a collaborative filtering pipeline.
+Tests the complete flow from data preprocessing through hardware acceleration to
+final recommendation generation.
+
+TEST METHODOLOGY:
+- Multi-phase pipeline testing: Software preprocessing -> Hardware acceleration -> Software postprocessing
+- SPI-based stimulus delivery to hardware for realistic interface testing
+- Hardware execution timing measurement for performance analysis
+- Automatic completion detection and result verification
+
+PIPELINE PHASES:
+1. Preprocessing (cob_part1.py): Generate partial products from user-item matrix
+2. Hardware Acceleration: SPI delivery of partial products to MatRaptor core
+3. Postprocessing (cob_part3.py): Use hardware results for collaborative filtering
+
+SPI SIMULATION PROTOCOL:
+- 9-byte frames: [VALUE 32b][ROW 16b][COL 16b][FLAGS 8b]
+- MSB-first transmission with chip select control
+- Backpressure handling for realistic hardware interface
+- Frame-by-frame delivery with configurable inter-frame gaps
+
+TIMING MEASUREMENT:
+- Hardware timer: Start on first input, stop on processing completion
+- Nanosecond precision using SystemVerilog $time via signal monitoring
+- Performance comparison baseline for software vs hardware speedup
+
+COMPLETION DETECTION:
+- Monitors hardware state machine transitions (S_MERGE_NEXT_Q)
+- Tracks input completion via SPI last_flag
+- Automatic termination when all rows processed
+- Safety timeouts prevent infinite simulation
+
+VERIFICATION APPROACH:
+- Real-time output capture from hardware
+- CSV result logging for numerical verification
+- State machine monitoring for correctness
+- End-to-end functional validation with real collaborative filtering data
+
+USAGE:
+Run via cocotb makefile:
+    make SIM=questa MODULE=test_spi TOPLEVEL=tb_matraptor_core
+
+EXPECTED OUTPUTS:
+- in.csv: Generated partial products (from preprocessing)
+- out.csv: Hardware-processed results
+- recommendations.csv: Final collaborative filtering output
+- Timing comparison: Software vs hardware execution time
+
+ERROR HANDLING:
+- Script execution monitoring with timeout protection
+- File existence validation
+- Hardware simulation watchdog timers
+- Graceful failure reporting with diagnostic information
+
+DEPENDENCIES:
+- cocotb, numpy, pandas, scipy (Python packages)
+- SystemVerilog testbench with SPI interface
+- MatRaptor core implementation
+- Questa simulator (configurable)
+"""
 import cocotb
 from cocotb.clock import Clock
 from cocotb.triggers import RisingEdge, FallingEdge, Timer, ClockCycles
