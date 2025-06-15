@@ -7,6 +7,6 @@ All content including Codefest contributions and notes are now maintained in the
 
 ## 🔗 Quick Navigation
 
-## [Final Project: MatRaptor Collaborative Filtering Coprocessor](https://github.com/AbhishekMusku/hw4aiml-am/blob/main/SpGEMM_Accelerator/readme.md) - Complete hardware-software coprocessor implementation for real-time movie recommendation
+## [Final Project: MatRaptor Collaborative Filtering Coprocessor](https://github.com/AbhishekMusku/hw4aiml-am/tree/main/SpGEMM_Accelerator) - Complete hardware-software coprocessor implementation for real-time movie recommendation
 
 ##  [Weekly Challenge Solutions](https://github.com/AbhishekMusku/hw4aiml-am/wiki) - Progressive development through weekly codefests and learning exercises
